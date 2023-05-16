@@ -1,0 +1,1 @@
+https://eliemichel.github.io/LearnWebGPU/getting-started/hello-webgpu.html
