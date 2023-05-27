@@ -1,4 +1,6 @@
 This is just a manual mirror of my development repository: https://www.awesemble.de/cgi-bin/fossil/public/wjpu/home
+You can also follow the project on [cohost](https://cohost.org/wjpu)
+
 
 My workflow is in fossil, so this github repo might be a bit outdated, eventually i should implement some sort of automatism to keep the repos in sync, but for now i am ok with doing it by hand every week or so.
 Whenever i make some progress i will make a commit here :D
@@ -22,8 +24,6 @@ jpm test
 on windows you could just call jake.bat and it'll do all that in one go.
 
 ---
-
-[follow on cohost](https://cohost.org/wjpu)
 
 
 #### Clone
