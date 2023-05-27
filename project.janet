@@ -22,7 +22,11 @@ todo:
              "-ObjC"]
     
     :windows ["-Iglfw/include"
-              "-IWebGPU-distribution-wgpu/include"]
+              "-IWebGPU-distribution-wgpu/include"
+              "-Iglfw3webgpu"
+              "/Zi"
+              "/FS"
+             ]
     
     #default
     '["-Iglfw/include"
@@ -35,7 +39,9 @@ todo:
                "winmm.lib"
                "shell32.lib"
                "glfw/build/src/Debug/glfw3dll.lib"
-               "WebGPU-distribution-wgpu/bin/windows-x86_64/wgpu_native.dll.lib"]
+               "WebGPU-distribution-wgpu/bin/windows-x86_64/wgpu_native.dll.lib"
+               "/NODEFAULTLIB:MSVCRTD"
+              ]
     
     :macos '["-lpthread"
              "-framework" "Cocoa"
@@ -63,11 +69,11 @@ todo:
            "_DARWIN_C_SOURCE" (if (= this-os :macos) "1" nil)
            "WEBGPU_BACKEND_WGPU" true}
 
- :source ["src/generated/glfw.c"]
+ :source ["glfw3webgpu/glfw3webgpu.c" "src/glfw.gen.c"]
+ :headers ["src/glfw.aux.h"]
  
  :lflags [;default-lflags
           ;lflags])
-
 
 # `jpm run repl` to run a repl with access to jaylib
 (phony "repl" ["build"]

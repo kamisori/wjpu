@@ -1,1 +1,3 @@
 https://eliemichel.github.io/LearnWebGPU/getting-started/hello-webgpu.html
+https://eliemichel.github.io/LearnWebGPU/getting-started/the-adapter.html see destruction for webgpu-release.h:
+https://eliemichel.github.io/LearnWebGPU/_downloads/e3b4b7e5d37965df6f754314ef616019/webgpu-release.h
