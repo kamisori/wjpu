@@ -33,7 +33,7 @@
   (terminate)
   (error "could not create adapter"))
 
-(printf "Found %q features" (inspect-wgpu-adapter wgpu-adapter))
+(printf "Found %q features" (wgpu-inspect-adapter wgpu-adapter))
 
 (def wgpu-device (wgpu-create-device wgpu-adapter))
 (unless wgpu-device
@@ -52,9 +52,44 @@
   (terminate)
   (error "could not create device"))
 
-(while (not (close-window? window))
-  (poll-events))
+(wgpu-device-set-uncaptured-error-callback wgpu-device)
 
+(def wgpu-queue (wgpu-device-create-queue wgpu-device))
+
+(def wgpu-swapchain (wgpu-device-create-swapchain wgpu-device wgpu-adapter wgpu-surface))
+
+
+(def cmdbuff (create-command-buffer))
+
+(while (not (close-window? window))
+  (poll-events)
+
+  (def nextTexture (wgpu-swapchain-create-next-textureview wgpu-swapchain))
+  # Getting the texture may fail, in particular if the window has been resized
+  # and thus the target surface changed.
+  (when (nil? nextTexture)
+    (printf "Cannot acquire next swap chain texture")
+    (break))
+  (def wgpu-commandencoder (wgpu-device-get-command-encoder wgpu-device))
+
+  (def renderPass (wgpu-get-example-renderpass wgpu-commandencoder nextTexture))
+  (wgpu-render-pass-encoder-end renderPass)
+
+  (wgpu-destroy-textureview nextTexture)
+
+  (wgpu-command-encoder-insert-debug-marker wgpu-commandencoder "hello world")
+  (wgpu-command-encoder-finish-ref wgpu-commandencoder cmdbuff)
+
+  (wgpu-queue-submit wgpu-queue 1 cmdbuff)
+  (wgpu-swapchain-present wgpu-swapchain)
+  )
+
+(destroy-command-buffer cmdbuff)
+
+(wgpu-destroy-queue wgpu-queue)
+(if wgpu-swapchain
+  (wgpu-destroy-swapchain wgpu-swapchain)
+  (pp "swapchain already gone"))
 (if wgpu-device
   (wgpu-destroy-device wgpu-device)
   (pp "device already gone"))

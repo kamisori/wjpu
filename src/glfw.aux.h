@@ -73,7 +73,7 @@ WGPUAdapter *requestAdapter_smalloc(WGPUInstance instance,
   }
   else
   {
-    fprintf(stderr, "Timeout: No device after (%d) cycles\n", i);
+    fprintf(stderr, "Timeout: No device after (%I64d) cycles\n", i);
   }
   return result;
 }
@@ -133,7 +133,7 @@ WGPUDevice *requestDevice(WGPUAdapter adapter,
   }
   else
   {
-    fprintf(stderr, "Timeout: No device after (%d) cycles\n", i);
+    fprintf(stderr, "Timeout: No device after (%I64d) cycles\n", i);
   }
   return result;
 }
