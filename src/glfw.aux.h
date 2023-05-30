@@ -42,7 +42,7 @@ void onAdapterRequestEnded_callback(WGPURequestAdapterStatus status,
  *     const adapter = await navigator.gpu.requestAdapter(options);
  */
 WGPUAdapter *requestAdapter_smalloc(WGPUInstance instance,
-                            WGPURequestAdapterOptions const * options) {
+                                    WGPURequestAdapterOptions const * options) {
   WGPUAdapter *result = NULL;
   UserData userData;
   userData.adapter = NULL;
@@ -102,8 +102,8 @@ void onDeviceRequestEnded_callback(WGPURequestDeviceStatus status,
  *     const device = await adapter.requestDevice(descriptor);
  * It is very similar to requestAdapter
  */
-WGPUDevice *requestDevice(WGPUAdapter adapter,
-                          WGPUDeviceDescriptor const * descriptor) {
+WGPUDevice *requestDevice_smalloc(WGPUAdapter adapter,
+                                  WGPUDeviceDescriptor const * descriptor) {
   WGPUDevice *result = NULL;
   UserData userData;
   userData.device = NULL;

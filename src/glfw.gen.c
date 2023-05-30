@@ -351,7 +351,7 @@ static void * wgpu_create_device(void *adapter) {
   deviceDescriptor.requiredLimits = NULL;
   deviceDescriptor.defaultQueue.nextInChain = NULL;
   deviceDescriptor.defaultQueue.label = "The default queue.";
-  WGPUDevice* device = requestDevice(*tmpa, &deviceDescriptor);
+  WGPUDevice* device = requestDevice_smalloc(*tmpa, &deviceDescriptor);
   return device;
 }
 

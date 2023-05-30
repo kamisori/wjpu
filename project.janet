@@ -17,41 +17,62 @@ todo:
 
 (def cflags
   (case this-os
-    :macos '["-Iglfw/include"
-             "-IWebGPU-distribution-wgpu/include"
-             "-ObjC"]
+    :macos '[
+      "-Iglfw/include"
+      "-IWebGPU-distribution-wgpu/include"
+      "-ObjC"]
     
-    :windows ["-Iglfw/include"
-              "-IWebGPU-distribution-wgpu/include"
-              "-Iglfw3webgpu"
-              "/Zi"
-              "/FS"
-             ]
-    
+    :windows '[
+      "-Iglfw/include"
+      "-IWebGPU-distribution-wgpu/include"
+      "-Iwebgpu-release/include"
+      "-Iglfw3webgpu"
+      "/Zi"
+      "/FS"
+      ]
+
+    :linux '[
+      "-Iglfw/include"
+      "-IWebGPU-distribution-wgpu/include"
+      "-Iwebgpu-release/include"
+      "-Iglfw3webgpu"
+      ]
+
     #default
-    '["-Iglfw/include"
-      "-IWebGPU-distribution-wgpu/include"]))
+    '[
+      "-Iglfw/include"
+      "-IWebGPU-distribution-wgpu/include"
+      ]))
 
 (def lflags
   (case this-os
-    :windows '["user32.lib"
-               "gdi32.lib"
-               "winmm.lib"
-               "shell32.lib"
-               "glfw/build/src/Debug/glfw3dll.lib"
-               "WebGPU-distribution-wgpu/bin/windows-x86_64/wgpu_native.dll.lib"
-               "/NODEFAULTLIB:MSVCRTD"
-              ]
-    
-    :macos '["-lpthread"
-             "-framework" "Cocoa"
-             "-framework" "CoreVideo"
-             "-framework" "IOKit"
-             "-framework" "OpenGL"]
-    
-    :linux '["-lpthread"
-             "-lX11"]
-    
+    :windows '[
+      "user32.lib"
+      "gdi32.lib"
+      "winmm.lib"
+      "shell32.lib"
+      "glfw/build/src/Debug/glfw3.lib"
+      "WebGPU-distribution-wgpu/bin/windows-x86_64/wgpu_native.dll.lib"
+      "/NODEFAULTLIB:MSVCRTD"
+      ]
+      
+    :macos '[
+      "-lpthread"
+      "-framework" "Cocoa"
+      "-framework" "CoreVideo"
+      "-framework" "IOKit"
+      "-framework" "OpenGL"
+      ]
+
+    :linux '[
+      "-lpthread"
+      "-lX11"
+      "-Lglfw/build/src/"
+      "-lglfw"
+      "-LWebGPU-distribution-wgpu/bin/linux-x86_64/"
+      "-lwgpu_native"
+      ]
+
     #default
     '["-lpthread"]))
 

@@ -218,7 +218,7 @@ links in comments are todos```)
       (set deviceDescriptor.requiredLimits NULL)
       (set deviceDescriptor.defaultQueue.nextInChain NULL)
       (set deviceDescriptor.defaultQueue.label "The default queue.")
-      (def device:WGPUDevice* (requestDevice *tmpa &deviceDescriptor))
+      (def device:WGPUDevice* (requestDevice_smalloc *tmpa &deviceDescriptor))
       (return device)))
   ###################
 
