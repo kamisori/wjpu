@@ -5,7 +5,7 @@ native Janet bindings for [wgpu](https://eliemichel.github.io/LearnWebGPU/gettin
 ---
 
 
-There is my [development fossil repository](https://www.awesemble.de/cgi-bin/fossil/public/wjpu) you may clone, but if you prefer git, you may clone https://github.com/kamisori/wjpu instead.
+There is my [development fossil repository](https://www.awesemble.de/cgi-bin/fossil/public/wjpu) you may clone, but if you prefer git, you may clone the [github repo](https://github.com/kamisori/wjpu) instead.
 
 Issues should be filed on github.
 
