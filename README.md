@@ -36,6 +36,7 @@ i like to put a `.fossil` folder containing all the files like: `*.fossil` somew
 i know it doesnt matter if you give a program a path to a directory with or without the ending slash/backslash, but it just ticks me off when autocomplete bumps into the databasefile's dot in its name when cd-ing from my work dir into a projects workdir, or at all on autocomplete in the shell... i dont want to interact with the fossil databasefile directly (most of the time).
 
 ---
+
 #### Prerequisites
 for the purpose of this document i will refer to this projects root as `./wjpu/`
 
@@ -46,15 +47,21 @@ Download the wgpu distribution for 'any' platform to use this projects jpm file.
  - [direct link to any platform wgpu distribution](https://github.com/eliemichel/WebGPU-distribution/archive/refs/heads/wgpu.zip)
 
 copy to your ./wjpu/ and extract like e.g. this:
+
 `unzip WebGPU-distribution-wgpu.zip`
 
+
+
 you should end up with a folderstructure like:
+
 `./wjpu/WebGPU-distribution-wgpu/include/webgpu/`
+
 
 
 ###### webgpu-release shim
 
 also the [webgpu-release](https://eliemichel.github.io/LearnWebGPU/_downloads/e3b4b7e5d37965df6f754314ef616019/webgpu-release.h) compatibility shim to make a transition to dawn easier in the future. Put this file into:
+
 `./wjpu/webgpu-release/include/webgpu/webgpu-release.h`
 
 
@@ -73,6 +80,11 @@ cmake --build ./glfw/build/
 ```
 
 #### Build
+
+this is using cjanet from spork. so get and install janet from [janet-lang.org](janet-lang.org) get and bootstrap [jpm](https://github.com/janet-lang/jpm) and:
+
+`jpm install spork`
+
 clone repo and position yourself into its root, then run the c code generating rule before building to get fresh bindings made out of cjanet code:
 
 ```
