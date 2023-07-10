@@ -1,0 +1,162 @@
+has              wgpuAdapterRelease
+has              wgpuDeviceRelease
+has              wgpuInstanceRelease
+has              wgpuSurfaceRelease
+has              wgpuSwapChainRelease
+has              wgpuTextureViewRelease
+needs            wgpuBindGroupLayoutRelease
+needs            wgpuBindGroupRelease
+needs            wgpuComputePassEncoderRelease
+needs            wgpuComputePipelineRelease
+needs            wgpuQuerySetRelease
+needs            wgpuRenderBundleEncoderRelease
+needs            wgpuRenderBundleRelease
+needs            wgpuSamplerRelease
+needs            wgpuTextureRelease
+untested         wgpuBufferRelease
+untested         wgpuCommandBufferRelease (dawn only)
+untested         wgpuCommandEncoderRelease (dawn only)
+untested         wgpuPipelineLayoutRelease
+untested         wgpuRenderPassEncoderRelease
+untested         wgpuRenderPipelineRelease
+untested         wgpuShaderModuleRelease
+
+example              WGPUBuffer wgpuDeviceCreateBuffer(WGPUDevice device, WGPUBufferDescriptor const * descriptor);
+example            void wgpuBufferMapAsync(WGPUBuffer buffer, WGPUMapModeFlags mode, size_t offset, size_t size, WGPUBufferMapCallback callback, void * userdata);
+example          WGPURenderPassEncoder wgpuCommandEncoderBeginRenderPass(WGPUCommandEncoder commandEncoder, WGPURenderPassDescriptor const * descriptor);
+example          WGPURenderPipeline wgpuDeviceCreateRenderPipeline(WGPUDevice device, WGPURenderPipelineDescriptor const * descriptor);
+example          WGPUSwapChain wgpuDeviceCreateSwapChain(WGPUDevice device, WGPUSurface surface, WGPUSwapChainDescriptor const * descriptor);
+has              void wgpuCommandEncoderInsertDebugMarker(WGPUCommandEncoder commandEncoder, char const * markerLabel);
+has              void wgpuQueueSubmit(WGPUQueue queue, uint32_t commandCount, WGPUCommandBuffer const * commands);
+has              void wgpuRenderPassEncoderEnd(WGPURenderPassEncoder renderPassEncoder);
+has              void wgpuRenderPassEncoderSetPipeline(WGPURenderPassEncoder renderPassEncoder, WGPURenderPipeline pipeline);
+has              void wgpuSwapChainPresent(WGPUSwapChain swapChain);
+has              WGPUQueue wgpuDeviceGetQueue(WGPUDevice device);
+has              WGPUTextureFormat wgpuSurfaceGetPreferredFormat(WGPUSurface surface, WGPUAdapter adapter);
+has              WGPUTextureView wgpuSwapChainGetCurrentTextureView(WGPUSwapChain swapChain);
+has 2            void wgpuRenderPassEncoderDraw(WGPURenderPassEncoder renderPassEncoder, uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance);
+needs            bool wgpuAdapterGetLimits(WGPUAdapter adapter, WGPUSupportedLimits * limits);
+needs            bool wgpuAdapterHasFeature(WGPUAdapter adapter, WGPUFeatureName feature);
+needs            bool wgpuDeviceGetLimits(WGPUDevice device, WGPUSupportedLimits * limits);
+needs            bool wgpuDeviceHasFeature(WGPUDevice device, WGPUFeatureName feature);
+needs            bool wgpuDevicePopErrorScope(WGPUDevice device, WGPUErrorCallback callback, void * userdata);
+needs            size_t wgpuDeviceEnumerateFeatures(WGPUDevice device, WGPUFeatureName * features);
+needs            uint32_t wgpuQuerySetGetCount(WGPUQuerySet querySet);
+needs            uint32_t wgpuTextureGetDepthOrArrayLayers(WGPUTexture texture);
+needs            uint32_t wgpuTextureGetHeight(WGPUTexture texture);
+needs            uint32_t wgpuTextureGetMipLevelCount(WGPUTexture texture);
+needs            uint32_t wgpuTextureGetSampleCount(WGPUTexture texture);
+needs            uint32_t wgpuTextureGetWidth(WGPUTexture texture);
+needs            uint64_t wgpuBufferGetSize(WGPUBuffer buffer);
+needs            void * wgpuBufferGetMappedRange(WGPUBuffer buffer, size_t offset, size_t size);
+needs            void const * wgpuBufferGetConstMappedRange(WGPUBuffer buffer, size_t offset, size_t size);
+needs            void wgpuAdapterGetProperties(WGPUAdapter adapter, WGPUAdapterProperties * properties);
+needs            void wgpuAdapterRequestDevice(WGPUAdapter adapter, WGPUDeviceDescriptor const * descriptor /* nullable */, WGPURequestDeviceCallback callback, void * userdata);
+needs            void wgpuBindGroupLayoutSetLabel(WGPUBindGroupLayout bindGroupLayout, char const * label);
+needs            void wgpuBindGroupSetLabel(WGPUBindGroup bindGroup, char const * label);
+needs            void wgpuBufferSetLabel(WGPUBuffer buffer, char const * label);
+needs            void wgpuBufferUnmap(WGPUBuffer buffer);
+needs            void wgpuCommandBufferSetLabel(WGPUCommandBuffer commandBuffer, char const * label);
+needs            void wgpuCommandEncoderClearBuffer(WGPUCommandEncoder commandEncoder, WGPUBuffer buffer, uint64_t offset, uint64_t size);
+needs            void wgpuCommandEncoderCopyBufferToTexture(WGPUCommandEncoder commandEncoder, WGPUImageCopyBuffer const * source, WGPUImageCopyTexture const * destination, WGPUExtent3D const * copySize);
+needs            void wgpuCommandEncoderCopyTextureToBuffer(WGPUCommandEncoder commandEncoder, WGPUImageCopyTexture const * source, WGPUImageCopyBuffer const * destination, WGPUExtent3D const * copySize);
+needs            void wgpuCommandEncoderCopyTextureToTexture(WGPUCommandEncoder commandEncoder, WGPUImageCopyTexture const * source, WGPUImageCopyTexture const * destination, WGPUExtent3D const * copySize);
+needs            void wgpuCommandEncoderPopDebugGroup(WGPUCommandEncoder commandEncoder);
+needs            void wgpuCommandEncoderPushDebugGroup(WGPUCommandEncoder commandEncoder, char const * groupLabel);
+needs            void wgpuCommandEncoderResolveQuerySet(WGPUCommandEncoder commandEncoder, WGPUQuerySet querySet, uint32_t firstQuery, uint32_t queryCount, WGPUBuffer destination, uint64_t destinationOffset);
+needs            void wgpuCommandEncoderSetLabel(WGPUCommandEncoder commandEncoder, char const * label);
+needs            void wgpuCommandEncoderWriteTimestamp(WGPUCommandEncoder commandEncoder, WGPUQuerySet querySet, uint32_t queryIndex);
+needs            void wgpuComputePassEncoderBeginPipelineStatisticsQuery(WGPUComputePassEncoder computePassEncoder, WGPUQuerySet querySet, uint32_t queryIndex);
+needs            void wgpuComputePassEncoderDispatchWorkgroups(WGPUComputePassEncoder computePassEncoder, uint32_t workgroupCountX, uint32_t workgroupCountY, uint32_t workgroupCountZ);
+needs            void wgpuComputePassEncoderDispatchWorkgroupsIndirect(WGPUComputePassEncoder computePassEncoder, WGPUBuffer indirectBuffer, uint64_t indirectOffset);
+needs            void wgpuComputePassEncoderEnd(WGPUComputePassEncoder computePassEncoder);
+needs            void wgpuComputePassEncoderEndPipelineStatisticsQuery(WGPUComputePassEncoder computePassEncoder);
+needs            void wgpuComputePassEncoderInsertDebugMarker(WGPUComputePassEncoder computePassEncoder, char const * markerLabel);
+needs            void wgpuComputePassEncoderPopDebugGroup(WGPUComputePassEncoder computePassEncoder);
+needs            void wgpuComputePassEncoderPushDebugGroup(WGPUComputePassEncoder computePassEncoder, char const * groupLabel);
+needs            void wgpuComputePassEncoderSetBindGroup(WGPUComputePassEncoder computePassEncoder, uint32_t groupIndex, WGPUBindGroup group, uint32_t dynamicOffsetCount, uint32_t const * dynamicOffsets);
+needs            void wgpuComputePassEncoderSetLabel(WGPUComputePassEncoder computePassEncoder, char const * label);
+needs            void wgpuComputePassEncoderSetPipeline(WGPUComputePassEncoder computePassEncoder, WGPUComputePipeline pipeline);
+needs            void wgpuComputePipelineSetLabel(WGPUComputePipeline computePipeline, char const * label);
+needs            void wgpuDeviceCreateComputePipelineAsync(WGPUDevice device, WGPUComputePipelineDescriptor const * descriptor, WGPUCreateComputePipelineAsyncCallback callback, void * userdata);
+needs            void wgpuDeviceCreateRenderPipelineAsync(WGPUDevice device, WGPURenderPipelineDescriptor const * descriptor, WGPUCreateRenderPipelineAsyncCallback callback, void * userdata);
+needs            void wgpuDeviceDestroy(WGPUDevice device);
+needs            void wgpuDevicePushErrorScope(WGPUDevice device, WGPUErrorFilter filter);
+needs            void wgpuDeviceSetDeviceLostCallback(WGPUDevice device, WGPUDeviceLostCallback callback, void * userdata);
+needs            void wgpuDeviceSetLabel(WGPUDevice device, char const * label);
+needs            void wgpuInstanceProcessEvents(WGPUInstance instance);
+needs            void wgpuInstanceRequestAdapter(WGPUInstance instance, WGPURequestAdapterOptions const * options /* nullable */, WGPURequestAdapterCallback callback, void * userdata);
+needs            void wgpuPipelineLayoutSetLabel(WGPUPipelineLayout pipelineLayout, char const * label);
+needs            void wgpuQuerySetDestroy(WGPUQuerySet querySet);
+needs            void wgpuQuerySetSetLabel(WGPUQuerySet querySet, char const * label);
+needs            void wgpuQueueSetLabel(WGPUQueue queue, char const * label);
+needs            void wgpuQueueWriteTexture(WGPUQueue queue, WGPUImageCopyTexture const * destination, void const * data, size_t dataSize, WGPUTextureDataLayout const * dataLayout, WGPUExtent3D const * writeSize);
+needs            void wgpuRenderBundleEncoderDraw(WGPURenderBundleEncoder renderBundleEncoder, uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance);
+needs            void wgpuRenderBundleEncoderDrawIndexed(WGPURenderBundleEncoder renderBundleEncoder, uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t baseVertex, uint32_t firstInstance);
+needs            void wgpuRenderBundleEncoderDrawIndexedIndirect(WGPURenderBundleEncoder renderBundleEncoder, WGPUBuffer indirectBuffer, uint64_t indirectOffset);
+needs            void wgpuRenderBundleEncoderDrawIndirect(WGPURenderBundleEncoder renderBundleEncoder, WGPUBuffer indirectBuffer, uint64_t indirectOffset);
+needs            void wgpuRenderBundleEncoderInsertDebugMarker(WGPURenderBundleEncoder renderBundleEncoder, char const * markerLabel);
+needs            void wgpuRenderBundleEncoderPopDebugGroup(WGPURenderBundleEncoder renderBundleEncoder);
+needs            void wgpuRenderBundleEncoderPushDebugGroup(WGPURenderBundleEncoder renderBundleEncoder, char const * groupLabel);
+needs            void wgpuRenderBundleEncoderSetBindGroup(WGPURenderBundleEncoder renderBundleEncoder, uint32_t groupIndex, WGPUBindGroup group, uint32_t dynamicOffsetCount, uint32_t const * dynamicOffsets);
+needs            void wgpuRenderBundleEncoderSetIndexBuffer(WGPURenderBundleEncoder renderBundleEncoder, WGPUBuffer buffer, WGPUIndexFormat format, uint64_t offset, uint64_t size);
+needs            void wgpuRenderBundleEncoderSetLabel(WGPURenderBundleEncoder renderBundleEncoder, char const * label);
+needs            void wgpuRenderBundleEncoderSetPipeline(WGPURenderBundleEncoder renderBundleEncoder, WGPURenderPipeline pipeline);
+needs            void wgpuRenderBundleEncoderSetVertexBuffer(WGPURenderBundleEncoder renderBundleEncoder, uint32_t slot, WGPUBuffer buffer, uint64_t offset, uint64_t size);
+needs            void wgpuRenderPassEncoderBeginOcclusionQuery(WGPURenderPassEncoder renderPassEncoder, uint32_t queryIndex);
+needs            void wgpuRenderPassEncoderBeginPipelineStatisticsQuery(WGPURenderPassEncoder renderPassEncoder, WGPUQuerySet querySet, uint32_t queryIndex);
+needs            void wgpuRenderPassEncoderDrawIndexed(WGPURenderPassEncoder renderPassEncoder, uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t baseVertex, uint32_t firstInstance);
+needs            void wgpuRenderPassEncoderDrawIndexedIndirect(WGPURenderPassEncoder renderPassEncoder, WGPUBuffer indirectBuffer, uint64_t indirectOffset);
+needs            void wgpuRenderPassEncoderDrawIndirect(WGPURenderPassEncoder renderPassEncoder, WGPUBuffer indirectBuffer, uint64_t indirectOffset);
+needs            void wgpuRenderPassEncoderEndOcclusionQuery(WGPURenderPassEncoder renderPassEncoder);
+needs            void wgpuRenderPassEncoderEndPipelineStatisticsQuery(WGPURenderPassEncoder renderPassEncoder);
+needs            void wgpuRenderPassEncoderExecuteBundles(WGPURenderPassEncoder renderPassEncoder, uint32_t bundleCount, WGPURenderBundle const * bundles);
+needs            void wgpuRenderPassEncoderInsertDebugMarker(WGPURenderPassEncoder renderPassEncoder, char const * markerLabel);
+needs            void wgpuRenderPassEncoderPopDebugGroup(WGPURenderPassEncoder renderPassEncoder);
+needs            void wgpuRenderPassEncoderPushDebugGroup(WGPURenderPassEncoder renderPassEncoder, char const * groupLabel);
+needs            void wgpuRenderPassEncoderSetBindGroup(WGPURenderPassEncoder renderPassEncoder, uint32_t groupIndex, WGPUBindGroup group, uint32_t dynamicOffsetCount, uint32_t const * dynamicOffsets);
+needs            void wgpuRenderPassEncoderSetBlendConstant(WGPURenderPassEncoder renderPassEncoder, WGPUColor const * color);
+needs            void wgpuRenderPassEncoderSetIndexBuffer(WGPURenderPassEncoder renderPassEncoder, WGPUBuffer buffer, WGPUIndexFormat format, uint64_t offset, uint64_t size);
+needs            void wgpuRenderPassEncoderSetLabel(WGPURenderPassEncoder renderPassEncoder, char const * label);
+needs            void wgpuRenderPassEncoderSetScissorRect(WGPURenderPassEncoder renderPassEncoder, uint32_t x, uint32_t y, uint32_t width, uint32_t height);
+needs            void wgpuRenderPassEncoderSetStencilReference(WGPURenderPassEncoder renderPassEncoder, uint32_t reference);
+needs            void wgpuRenderPassEncoderSetVertexBuffer(WGPURenderPassEncoder renderPassEncoder, uint32_t slot, WGPUBuffer buffer, uint64_t offset, uint64_t size);
+needs            void wgpuRenderPassEncoderSetViewport(WGPURenderPassEncoder renderPassEncoder, float x, float y, float width, float height, float minDepth, float maxDepth);
+needs            void wgpuRenderPipelineSetLabel(WGPURenderPipeline renderPipeline, char const * label);
+needs            void wgpuSamplerSetLabel(WGPUSampler sampler, char const * label);
+needs            void wgpuShaderModuleGetCompilationInfo(WGPUShaderModule shaderModule, WGPUCompilationInfoCallback callback, void * userdata);
+needs            void wgpuShaderModuleSetLabel(WGPUShaderModule shaderModule, char const * label);
+needs            void wgpuTextureDestroy(WGPUTexture texture);
+needs            void wgpuTextureSetLabel(WGPUTexture texture, char const * label);
+needs            void wgpuTextureViewSetLabel(WGPUTextureView textureView, char const * label);
+needs            WGPUBindGroup wgpuDeviceCreateBindGroup(WGPUDevice device, WGPUBindGroupDescriptor const * descriptor);
+needs            WGPUBindGroupLayout wgpuComputePipelineGetBindGroupLayout(WGPUComputePipeline computePipeline, uint32_t groupIndex);
+needs            WGPUBindGroupLayout wgpuDeviceCreateBindGroupLayout(WGPUDevice device, WGPUBindGroupLayoutDescriptor const * descriptor);
+needs            WGPUBindGroupLayout wgpuRenderPipelineGetBindGroupLayout(WGPURenderPipeline renderPipeline, uint32_t groupIndex);
+needs            WGPUBufferMapState wgpuBufferGetMapState(WGPUBuffer buffer);
+needs            WGPUBufferUsage wgpuBufferGetUsage(WGPUBuffer buffer);
+needs            WGPUComputePassEncoder wgpuCommandEncoderBeginComputePass(WGPUCommandEncoder commandEncoder, WGPUComputePassDescriptor const * descriptor /* nullable */);
+needs            WGPUComputePipeline wgpuDeviceCreateComputePipeline(WGPUDevice device, WGPUComputePipelineDescriptor const * descriptor);
+needs            WGPUProc wgpuGetProcAddress(WGPUDevice device, char const * procName);
+needs            WGPUQuerySet wgpuDeviceCreateQuerySet(WGPUDevice device, WGPUQuerySetDescriptor const * descriptor);
+needs            WGPUQueryType wgpuQuerySetGetType(WGPUQuerySet querySet);
+needs            WGPURenderBundle wgpuRenderBundleEncoderFinish(WGPURenderBundleEncoder renderBundleEncoder, WGPURenderBundleDescriptor const * descriptor /* nullable */);
+needs            WGPURenderBundleEncoder wgpuDeviceCreateRenderBundleEncoder(WGPUDevice device, WGPURenderBundleEncoderDescriptor const * descriptor);
+needs            WGPUSampler wgpuDeviceCreateSampler(WGPUDevice device, WGPUSamplerDescriptor const * descriptor /* nullable */);
+needs            WGPUSurface wgpuInstanceCreateSurface(WGPUInstance instance, WGPUSurfaceDescriptor const * descriptor);
+needs            WGPUTexture wgpuDeviceCreateTexture(WGPUDevice device, WGPUTextureDescriptor const * descriptor);
+needs            WGPUTextureDimension wgpuTextureGetDimension(WGPUTexture texture);
+needs            WGPUTextureFormat wgpuTextureGetFormat(WGPUTexture texture);
+needs            WGPUTextureUsage wgpuTextureGetUsage(WGPUTexture texture);
+needs            WGPUTextureView wgpuTextureCreateView(WGPUTexture texture, WGPUTextureViewDescriptor const * descriptor /* nullable */);
+see comment      void wgpuQueueOnSubmittedWorkDone(WGPUQueue queue, WGPUQueueWorkDoneCallback callback, void * userdata);
+wip              size_t wgpuAdapterEnumerateFeatures(WGPUAdapter adapter, WGPUFeatureName * features);
+wip              void wgpuBufferDestroy(WGPUBuffer buffer);
+wip              void wgpuCommandEncoderCopyBufferToBuffer(WGPUCommandEncoder commandEncoder, WGPUBuffer source, uint64_t sourceOffset, WGPUBuffer destination, uint64_t destinationOffset, uint64_t size);
+wip              void wgpuDeviceSetUncapturedErrorCallback(WGPUDevice device, WGPUErrorCallback callback, void * userdata);
+wip              void wgpuQueueWriteBuffer(WGPUQueue queue, WGPUBuffer buffer, uint64_t bufferOffset, void const * data, size_t size);
+wip              WGPUCommandBuffer wgpuCommandEncoderFinish(WGPUCommandEncoder commandEncoder, WGPUCommandBufferDescriptor const * descriptor /* nullable */);
+wip              WGPUCommandEncoder wgpuDeviceCreateCommandEncoder(WGPUDevice device, WGPUCommandEncoderDescriptor const * descriptor /* nullable */);
+wip              WGPUInstance wgpuCreateInstance(WGPUInstanceDescriptor const * descriptor);
+wip              WGPUPipelineLayout wgpuDeviceCreatePipelineLayout(WGPUDevice device, WGPUPipelineLayoutDescriptor const * descriptor);
+wip              WGPUShaderModule wgpuDeviceCreateShaderModule(WGPUDevice device, WGPUShaderModuleDescriptor const * descriptor);

@@ -1,8 +1,10 @@
-( declare-project
+(declare-project
   :name "wjpu"
   :description "bindings for wgpu and glfw - written with spork/cjanet"
   :url "https://awesemble.de"
-  :author "Janet Brüll <mlatu@mlatu.de>")
+  :author "Janet Brüll <mlatu@mlatu.de>"
+  :dependencies ["https://github.com/janet-lang/spork.git"]
+  )
 
 (comment ```depends on glfw and webgpu, see ./WebGPU-distribution-info.txt and ./glfw/glfw-sources-here. built and "tested" this only on windows so far
 
@@ -15,7 +17,7 @@ todo:
 
 (def this-os (os/which))
 
-(def cflags
+(def compiler-flags
   (case this-os
     :macos '[
       "-Iglfw/include"
@@ -23,37 +25,50 @@ todo:
       "-ObjC"]
     
     :windows '[
-      "-Iglfw/include"
-      "-IWebGPU-distribution-wgpu/include"
-      "-Iwebgpu-release/include"
-      "-Iglfw3webgpu"
       "/Zi"
       "/FS"
+      "/MD"
+      #"/fsanitize=address"
+      "/c"
+      "/O2"
+      "/D_CRT_SECURE_NO_WARNINGS"
+      "/W3"
+      "-IWebGPU-distribution-wgpu/include"
+      "-Iwebgpu-release/include"
+      "-Iglfw/include"
+      "-Iglfw3webgpu"
+      #"-Ispork/src"
       ]
 
     :linux '[
-      "-Iglfw/include"
-      "-IWebGPU-distribution-wgpu/include"
-      "-Iwebgpu-release/include"
-      "-Iglfw3webgpu"
+      "-IWebGPU-distribution-wgpu/include/"
+      "-Iwebgpu-release/include/"
+      "-Iglfw/include/"
+      "-Iglfw3webgpu/"
       ]
 
     #default
     '[
-      "-Iglfw/include"
-      "-IWebGPU-distribution-wgpu/include"
+      "-IWebGPU-distribution-wgpu/include/"
+      "-Iwebgpu-release/include/"
+      "-Iglfw/include/"
+      "-Iglfw3webgpu/"
       ]))
 
-(def lflags
+(def linker-flags
   (case this-os
     :windows '[
+      "/DEBUG"
       "user32.lib"
       "gdi32.lib"
       "winmm.lib"
       "shell32.lib"
       "glfw/build/src/Debug/glfw3.lib"
       "WebGPU-distribution-wgpu/bin/windows-x86_64/wgpu_native.dll.lib"
+      #"spork/build/spork/tarray.lib"
       "/NODEFAULTLIB:MSVCRTD"
+      #"clang_rt.asan_dynamic-x86_64.lib"
+      #"clang_rt.asan_dynamic_runtime_thunk-x86_64.lib
       ]
       
     :macos '[
@@ -76,26 +91,62 @@ todo:
     #default
     '["-lpthread"]))
 
+(def os-defines
+  (case this-os
+    :windows {"PLATFORM_DESKTOP" true
+              "WEBGPU_BACKEND_WGPU" true
+              "WJPU_C99_FORMAT" true}
+    #default
+              {"PLATFORM_DESKTOP" true
+              "WEBGPU_BACKEND_WGPU" true
+              "WJPU_ANSI_C_FORMAT" true}))
+
 (phony "gen" []
-       (os/execute ["janet" "src/glfw.janet"] :p))
+       (os/execute ["janet" "src/glfw_wgpu_c.janet"] :p))
 
-(declare-native
- :name "wjpu"
- 
- :cflags [;default-cflags
-          ;cflags]
- 
- :defines {"PLATFORM_DESKTOP" true
-           "_POSIX_C_SOURCE" "200809L"
-           "_DARWIN_C_SOURCE" (if (= this-os :macos) "1" nil)
-           "WEBGPU_BACKEND_WGPU" true}
+(def wgpu-glfw-binding
+  (declare-native
+    :name "wgpu-glfw-binding"
+   
+    :cppflags [;default-cppflags
+               ;compiler-flags]
+   
+    :defines os-defines
 
- :source ["glfw3webgpu/glfw3webgpu.c" "src/glfw.gen.c"]
- :headers ["src/glfw.aux.h"]
- 
- :lflags [;default-lflags
-          ;lflags])
+    :source [
+             "src/glfw_wgpu.gen.cpp"
+             "glfw3webgpu/glfw3webgpu.cpp"
+             ]
+
+    :headers [
+              "src/glfw.aux.hpp"
+              "glfw3webgpu/glfw3webgpu.hpp"
+              "glfw/include/GLFW/glfw3.h"
+              "webgpu-release/include/webgpu/webgpu-release.h"
+              "WebGPU-distribution-wgpu/include/webgpu/webgpu.h"
+              "WebGPU-distribution-wgpu/include/webgpu/wgpu.h"
+              ]
+   
+    :lflags [;default-lflags
+             ;linker-flags]
+
+    #:install true
+    :native-deps ["spork/tarray"]
+    ))
+
+(comment
+(declare-source
+  :source ["src/wjpu.janet"]))
+
+(declare-executable
+  :name "demo"
+  :deps @[(wgpu-glfw-binding :static)]
+  :entry "demo.janet")
 
 # `jpm run repl` to run a repl with access to jaylib
 (phony "repl" ["build"]
        (os/execute ["janet" "-l" "./build/wjpu"] :p))
+
+#(declare-executable
+#  :name "test"
+#  :entry "test/main.janet")
