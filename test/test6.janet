@@ -137,7 +137,7 @@ fn fs_main() -> @location(0) vec4<f32> {
                 (put wjpu :clear-color (get-next-color (wjpu :clear-color)))
 
                 (def renderPass (wgpu-begin-example-renderpass-UHM commandencoder nextTexture (wjpu :clear-color)))
-                #(prin)
+
                 (wgpu-render-pass-encoder-set-pipeline renderPass (wjpu :render-pipeline))
 
                 (wgpu-render-pass-encoder-draw renderPass 3 1 0 0)

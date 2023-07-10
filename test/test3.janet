@@ -52,7 +52,6 @@
                                                   surface)     (string/format "could not create swapchain using wgpu device %q adapter %q surface %q in when-with" device adapter surface))
                                  |(test/assert (wgpu-release-swapchain $0) (string/format "could not destroy swapchain %q in when-with" swapchain))]
 
-
                       (let [queue (test/assert (wgpu-device-get-queue device) (string/format "could not get queue from device %q" device))
                             clear-color @{:r (math/random)
                                           :g (math/random)
